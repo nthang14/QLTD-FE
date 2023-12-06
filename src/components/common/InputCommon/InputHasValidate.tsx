@@ -16,7 +16,7 @@ export type InputType = {
   attribute?: any;
   maxLength?: number;
   multiline?: boolean;
-  maxRows?:number
+  maxRows?: number;
 };
 const InputHasValidate = ({ ...props }: InputType) => {
   return (
@@ -34,7 +34,7 @@ const InputHasValidate = ({ ...props }: InputType) => {
           defaultValue={props.defaultValue}
           type={props.type}
           onKeyPress={(ev) => {
-            if (ev.ctrlKey && ev.key === 'Enter') {
+            if (ev.ctrlKey && ev.key === "Enter") {
             }
           }}
           onChange={(e: any) => {

@@ -43,14 +43,14 @@ const TableCommon = ({ children, ...props }: any) => {
               sx={{ minWidth: 650 }}
               aria-label="simple table"
             >
-              <TableHead className={"bg-secondary-02 __head"}>
-                <TableRow className={"bg-secondary-02 __head"}>
+              <TableHead className={"bg-primary-02 __head"}>
+                <TableRow className={"bg-primary-02 __head"}>
                   {columns.map((column: any, i: number) => (
                     <TableCell
                       key={column.dataIndex + "_" + i}
                       className={`${
                         column.className ?? ""
-                      } bg-secondary-02 __head`}
+                      } bg-primary-02 __head`}
                     >
                       {column.title}
                     </TableCell>
@@ -92,14 +92,14 @@ const TableCommon = ({ children, ...props }: any) => {
               </TableBody>
             </Table>
           </TableContainer>
-          {/* <PaginationCommon
+          <PaginationCommon
             paginator={paginator}
             handleChangePage={handleChangePage}
             data={pagination}
             total={data.total}
             totalPage={Math.ceil(data.total / paginator.limit)}
             page={paginator.page}
-          /> */}
+          />
         </div>
       ) : (
         <div className="box-form">

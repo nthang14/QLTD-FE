@@ -22,16 +22,6 @@ module.exports = withPlugins([
 
   {
     ssr: false,
-    env: {
-      firebaseApiKey: process.env.FIREBASE_API_KEY,
-      firebaseAuthDomain: process.env.FIREBASE_DOMAIN,
-      firebaseProjectId: process.env.FIREBASE_PROJECT_ID,
-      firebaseStorageBucket: process.env.FIREBASE_STORAGE,
-      firebaseMessagingSenderId: process.env.FIREBASE_MESSAGE_SENDER_ID,
-      firebaseAppId: process.env.FIREBASE_APP_ID,
-      firebaseMeasurementId: process.env.FIREBASE_MEASUREMENT_ID,
-      firebaseVapiKey: process.env.FIREBASE_VAPI_KEY,
-    },
     i18n: {
       locales: ["en", "jp"],
       defaultLocale: "en",
@@ -42,16 +32,6 @@ module.exports = withPlugins([
       NETWORK: process.env.NETWORK,
       address: process.env.ADDRESS,
       basicAuthorization: process.env.BASIC_AUTHORIZATION,
-      keyReCaptcha: process.env.KEY_RE_CAPTCHA,
-      autoLogout: process.env.AUTO_LOGOUT,
-      firebaseApiKey: process.env.FIREBASE_API_KEY,
-      firebaseAuthDomain: process.env.FIREBASE_DOMAIN,
-      firebaseProjectId: process.env.FIREBASE_PROJECT_ID,
-      firebaseStorageBucket: process.env.FIREBASE_STORAGE,
-      firebaseMessagingSenderId: process.env.FIREBASE_MESSAGE_SENDER_ID,
-      firebaseAppId: process.env.FIREBASE_APP_ID,
-      firebaseMeasurementId: process.env.FIREBASE_MEASUREMENT_ID,
-      firebaseVapiKey: process.env.FIREBASE_VAPI_KEY,
     },
     poweredByHeader: false,
     async headers() {

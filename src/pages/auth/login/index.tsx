@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { IconButton, InputAdornment, Typography } from "@mui/material";
-import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { setNotify } from "~/app/slices/commonSlice";
 import ButtonCommon from "~/components/common/ButtonCommon";
@@ -15,7 +14,6 @@ import InputHasValidate from "~/components/common/InputCommon/InputHasValidate";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { validatePassword } from "~/utils/helpers";
-import imageLogin from "~/assets/images/image-login.webp";
 
 export default function Login() {
   const ref = useRef<HTMLInputElement>(null);
@@ -94,27 +92,22 @@ export default function Login() {
     <article id="login-page">
       <div className="login-page container mx-auto flex items-center min-h-screen justify-center">
         <div className="login-wrap">
-          <div className="form-login flex justify-around items-center px-16 py-28 gap-x-16">
-            <div>
-              <Image
-                src={imageLogin.src}
-                width={316}
-                height={289}
-                alt="image-login"
-                className="image-transform"
-              />
-            </div>
+          <div className="form-login flex justify-around items-center  py-20 gap-x-16">
             <div>
               <div className="title">
-                <Typography
-                  variant="h3"
-                  className="pni-text-title text-center font-bold"
-                >
-                  {t("login.title")}
-                </Typography>
+                <div className="flex justify-center w-full pb-5">
+                  <Typography
+                    variant="h3"
+                    align="center"
+                    className="pni-text-title text-center font-bold w-100"
+                  >
+                    {t("login.title")}
+                  </Typography>
+                </div>
+
                 <span className="pni-text-base">{t("login.sub_title")}</span>
               </div>
-              <div className="text-field">
+              <div className="text-field  pb-5">
                 <InputHasValidate
                   control={control}
                   name="username"
@@ -141,7 +134,7 @@ export default function Login() {
                   }}
                   type="text"
                 />
-                <div ref={ref} className="w-full">
+                <div ref={ref} className="w-full  pb-5">
                   <InputHasValidate
                     control={control}
                     name="password"
@@ -206,12 +199,6 @@ export default function Login() {
                   >
                     {t("login.button")}
                   </ButtonCommon>
-                </div>
-                <div
-                  className="text-[14px]"
-                  onClick={() => router.push("auth/register")}
-                >
-                  {t("login.register")}
                 </div>
               </div>
             </div>

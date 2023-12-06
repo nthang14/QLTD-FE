@@ -1,5 +1,7 @@
 #login-page {
-  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  background-color: #0093e9;
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+
   display: flex;
   flex-direction: column;
   .login-page {
@@ -8,7 +10,7 @@
     gap: 168px;
   }
   .form-login {
-    width: 800px;
+    width: 600px;
     gap: 36px;
     border-radius: 24px;
     background: #fff;

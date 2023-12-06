@@ -9,23 +9,23 @@ export const poppins = Poppins({
 const colorButton = {
   primary: {
     contained: {
-      bgActive: "#64B334",
-      bgDisabled: "#BCE5A3",
-      bgHover: "#508F2A",
+      bgActive: "#008DD4",
+      bgDisabled: "#70b7db",
+      bgHover: "#0575ad",
       text: "#F9F9F9",
     },
     outlined: {
       bgActive: "#FFFFFF",
       bgDisabled: "#FFFFFF",
-      bgHover: "#F2F9ED",
-      text: "#64B334",
+      bgHover: "#E6F4FB",
+      text: "#008DD4",
       textDisabled: "#BCE5A3",
     },
     text: {
       bgActive: "#FFFFFF",
       bgDisabled: "#FFFFFF",
       bgHover: "#F2F9ED",
-      text: "#64B334",
+      text: "#008DD4",
       textDisabled: "#BCE5A3",
     },
   },
@@ -77,7 +77,7 @@ const colorButton = {
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#64B334",
+      main: "#008DD4",
     },
     error: {
       main: "#B33434",
@@ -281,7 +281,7 @@ const theme = createTheme({
           fontSize: "14px",
           fontWeight: "400",
           "& label.Mui-focused": {
-            color: "#508F2A",
+            color: "#008DD4",
           },
           "& label.MuiInputLabel-shrink:not(.Mui-focused):not(.Mui-error)": {
             color: "#555754!important",
@@ -301,7 +301,7 @@ const theme = createTheme({
     MuiChip: {
       styleOverrides: {
         colorPrimary: {
-          color: "#64B334",
+          color: "#008DD4",
           backgroundColor: "#F2F9ED",
         },
         colorWarning: {
@@ -309,7 +309,7 @@ const theme = createTheme({
           backgroundColor: "#FFF9F0",
         },
         colorSuccess: {
-          color: "#64B334",
+          color: "#008DD4",
           backgroundColor: "#F2F9ED",
         },
         label: {
@@ -331,7 +331,7 @@ const theme = createTheme({
           borderRadius: "16px"
         },
         outlinedSuccess: {
-          border: "1px solid #64B334",
+          border: "1px solid #008DD4",
           backgroundColor: "#F2F9ED",
         },
         outlinedError: {

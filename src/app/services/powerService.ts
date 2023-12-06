@@ -1,48 +1,54 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "~/app/config/baseQuery";
-export const userServiceApi = createApi({
-  reducerPath: "userServiceApi",
+export const powerServiceApi = createApi({
+  reducerPath: "powerServiceApi",
   baseQuery: baseQuery,
   refetchOnMountOrArgChange: true,
   endpoints: (builder) => ({
-    getUsers: builder.query({
+    getPowers: builder.query({
       query: (params: any) => ({
-        url: `/users`,
+        url: `/powers`,
         method: "GET",
         params: params,
       }),
     }),
-    createUser: builder.mutation({
+    getPowerById: builder.query({
+      query: (id: any) => ({
+        url: `/powers/${id}`,
+        method: "GET",
+      }),
+    }),
+    createPowers: builder.mutation({
       query: (payload: any) => ({
-        url: `/users`,
+        url: `/powers`,
         method: "POST",
         body: payload,
       }),
     }),
-    updateUserStatus: builder.mutation({
+    updatePowersStatus: builder.mutation({
       query: (payload: any) => ({
-        url: `/users/${payload.id}/status`,
+        url: `/powers/${payload.id}/status`,
         method: "PUT",
         body: payload.payload,
       }),
     }),
-    getUserById: builder.query({
+    getPowersById: builder.query({
       query: (userId: any) => ({
-        url: `/users/${userId}`,
+        url: `/powers/${userId}`,
         method: "GET",
 
       }),
     }),
-    updateUser: builder.mutation({
+    updatePowers: builder.mutation({
       query: (payload: any) => ({
-        url: `/users/${payload.id}`,
+        url: `/powers/${payload.id}`,
         method: "PUT",
         body: payload.payload,
       }),
     }),
-    getUserByPassport: builder.mutation({
+    getPreviousPower: builder.mutation({
       query: (params: any) => ({
-        url: `/user-passport`,
+        url: `/powers/previous`,
         method: "PUT",
         body: params,
       }),
@@ -51,10 +57,8 @@ export const userServiceApi = createApi({
 });
 
 export const {
-  useGetUsersQuery,
-  useCreateUserMutation,
-  useUpdateUserStatusMutation,
-  useGetUserByIdQuery,
-  useUpdateUserMutation,
-  useGetUserByPassportMutation
-} = userServiceApi;
+    useGetPreviousPowerMutation,
+    useCreatePowersMutation,
+    useGetPowersQuery,
+    useGetPowerByIdQuery
+} = powerServiceApi;

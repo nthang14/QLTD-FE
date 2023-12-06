@@ -10,7 +10,43 @@ const BreadcrumbsCommon = ({ ...props }) => {
   const common: any = {
     dashboard: {
       title: t("nav.dashboard"),
-      link: "/dashboard",
+      link: "/",
+    },
+    customer: {
+      title: t("nav.customer"),
+      link: "/customers",
+    },
+    customerList: {
+      title: t("nav.list"),
+      link: "/customers",
+    },
+    customerCreate: {
+      title: t("nav.customerCreate"),
+      link: "/customers/create",
+    },
+    detailCustomer: {
+      title: t("nav.detailCustomer"),
+      link: `/customers/${router.query.customerId}`,
+    },
+    editCustomer: {
+      title: t("nav.editCustomer"),
+      link: `/customers/${router.query.customerId}/edit`,
+    },
+    energy: {
+      title: t("nav.energy"),
+      link: `/energy`,
+    },
+    indexCreate: {
+      title: t("nav.indexCreate"),
+      link: `/energy/create`,
+    },
+    indexEdit: {
+      title: t("nav.indexEdit"),
+      link: `/energy/${router.query?.energyId}/edit`,
+    },
+    indexDetail: {
+      title: t("nav.indexDetail"),
+      link: `/energy/${router.query?.energyId}`,
     },
   };
 
