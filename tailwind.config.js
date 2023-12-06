@@ -7,13 +7,13 @@ module.exports = {
   ],
   theme: {
     screens: {
-      'xs': '375px',
-      'sm': '640px',
-      'md': '768px',
-      'lg': '1024px',
-      'xl': '1280px',
-      '3xl': '1731px',
-      '2xl': '1500px'
+      xs: "375px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "3xl": "1731px",
+      "2xl": "1500px",
     },
     extend: {
       backgroundImage: {
@@ -25,9 +25,9 @@ module.exports = {
     colors: {
       primary: "#64B334",
       "primary-01": "#F2F6F5",
-      "primary-02": "#F2F9ED",
-      "primary-03": "#E1F6D4",
-      "primary-06": "#508F2A",
+      "primary-02": "#E6F4FB",
+      "primary-03": "#E6F4FB",
+      "primary-06": "#008DD4",
       "primary-09": "#14240A",
       error: "#B33434",
       "error-04": "#E0A0A0",
@@ -48,12 +48,12 @@ module.exports = {
       "tertiary-02": "#F2F8FC",
       white: "#FFFFFF",
       "secondary-01": "#236823",
-      "tertiary-08": "#0C2C42"
+      "tertiary-08": "#0C2C42",
     },
   },
   plugins: [],
   corePlugins: {
     preflight: false,
   },
-  important: 'body'
+  important: "body",
 };

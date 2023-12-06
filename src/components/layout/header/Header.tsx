@@ -28,8 +28,8 @@ import infoIcon from "~/assets/icons/info-icon.svg";
 import { useAuthLogoutMutation } from "~/app/services/authService";
 import Link from "next/link";
 import { NoSsr } from "@mui/base";
-import logo from "~/assets/images/logo_horizontal_green.png";
-
+import logo from "~/assets/images/logo.png";
+import Image from "next/image";
 export default function Header() {
   const t = useTranslations();
   const [authLogout] = useAuthLogoutMutation();
@@ -71,11 +71,13 @@ export default function Header() {
   const profile = readProfile();
   return (
     <div>
-      <div className="flex items-center justify-between px-[16px] h-[64px]">
+      <div className="flex items-center justify-between px-[16px] h-[84px]">
         <Link
           href="/dashboard"
-          className="font-semibold text-[32px] leading-[42px] text-primary-06 text-center px-[12.15px] project-number cursor-pointer no-underline flex items-center"
-        ></Link>
+          className="pl-[70px] font-semibold text-[32px] leading-[42px] text-primary-06 text-center px-[12.15px] project-number cursor-pointer no-underline flex items-center"
+        >
+          <Image src={logo.src} width={80} height={50} alt="logo" />
+        </Link>
         <div className="flex items-center justify-around">
           <NoSsr>
             <div className="w-10 h-10 rounded-full uppercase flex justify-center items-center bg-neutral-03 text-[24px] leading-[32px] font-medium text-neutral-07">
@@ -87,7 +89,7 @@ export default function Header() {
               </div>
               <div className="text-primary text-[12px] px-2 pr-3">
                 {profile?.role === ROLE_ADMIN.value
-                  ? t("role", { role: ROLE_ADMIN.text })
+                  ? t("common.role", { role: ROLE_ADMIN.text })
                   : ""}
               </div>
             </div>

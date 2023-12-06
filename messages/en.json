@@ -11,8 +11,8 @@
       "choose_file": "Choose File To Upload",
       "save": "Save",
       "add": "New",
-      "newFolder": "New Folders",
-      "fileUpload": "File Upload"
+      "createCustomer": "Create Customer",
+      "edit": "Edit"
     },
     "paging": "{range1} to {range2} out of items",
     "paging_with_total": "{range1} to {range2} out of {total} items",
@@ -25,12 +25,21 @@
       "msg004": "No data to display.",
       "msg005": "Login successfully!",
       "msg006": "Do you really want to logout?",
+      "msg007": "Update information customer successfully !",
+      "msg008": "Update information customer successfully !",
+      "msg009": "Update information customer successfully !",
+      "msg010": "Update information customer successfully !",
+      "msg011": "Update information customer successfully !",
+      "msg012": "Update information customer successfully !",
+      "msg013": "Update information customer successfully !",
+      "msg014": "Update information customer successfully !",
       "msg015": "Please select an image to upload.",
       "msg016": "Upload file successfully."
-    }
+    },
+    "role": "Role: {role}"
   },
   "login": {
-    "title": "Member Login",
+    "title": "Login",
     "sub_title": "Please enter username and password for login",
     "payload": {
       "username": "Username",
@@ -41,8 +50,17 @@
     "register": "Create your account"
   },
   "nav": {
-    "myDrive": "My Drives",
-    "sharedDrive": "Shared Drives"
+    "dashboard": "Dashboard",
+    "customer": "Customers",
+    "energy": "Energy",
+    "receipt": "Receipts",
+    "list": "List",
+    "customerCreate": "Create Customer",
+    "detailCustomer": "Detail Customer",
+    "editCustomer": "Edit Customer",
+    "indexCreate": "Create Index",
+    "indexEdit": "Edit Index",
+    "indexDetail": "Detail Index"
   },
   "dialog": {
     "upload_image": {
@@ -54,5 +72,50 @@
   },
   "folderForm": {
     "nameFolder": "Name folder"
+  },
+  "customer": {
+    "list": {
+      "title": "Customer List",
+      "columns": {
+        "passport": "Passport",
+        "fullName": "Full Name",
+        "createdAt": "Created At",
+        "phoneNumber": "Phone Number",
+        "address": "Address",
+        "action": "Action"
+      }
+    },
+    "create": {
+      "title": "Create Customer",
+      "edit": "Edit Customer",
+      "form": {
+        "passport": "Passport",
+        "fullName": "Full Name",
+        "phoneNumber": "Phone Number",
+        "address": "Address"
+      }
+    },
+    "detail": {
+      "title": "Detail Customers",
+      "form": {
+        "passport": "Passport",
+        "fullName": "Full Name",
+        "phoneNumber": "Phone Number",
+        "address": "Address",
+        "password": "Password"
+      }
+    }
+  },
+  "power": {
+    "create": {
+      "title": "Create Index",
+      "form": {
+        "indexOfMonth": "Month",
+        "index": "New index",
+        "passport": "Passport of customer",
+        "customerName": "Customer Name",
+        "indexLastMonth": "Previous index"
+      }
+    }
   }
 }
