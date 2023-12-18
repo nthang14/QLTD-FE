@@ -4,11 +4,12 @@ import TitleCommon from "~/components/common/TitleCommon";
 import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useGetUserByPassportMutation } from "~/app/services/userService";
 import {
   useGetPreviousPowerMutation,
   useCreatePowersMutation,
+  useGetPowerByIdQuery,
 } from "~/app/services/powerService";
 import InputHasValidate from "~/components/common/InputCommon/InputHasValidate";
 import { REGEX_PASSPORT } from "~/utils/constants";
@@ -26,14 +27,13 @@ export default function CreateCustomer() {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(true);
   const [passport, setPassport] = useState("");
   const [userByPassport] = useGetUserByPassportMutation();
   const [getPreviousPower] = useGetPreviousPowerMutation();
   const [createPowers] = useCreatePowersMutation();
   const [user, setUser] = useState<any>(null);
   const [lastIndex, setLastIndex] = useState<number>(0);
-
+  const getPowerById = useGetPowerByIdQuery(router?.query?.energyId);
   const [isLoading, setIsLoading] = useState(false);
   const [lastMonth, setLastMonth] = useState("");
   const [indexOfMonth, setIndexOfMonth] = useState("");
@@ -45,6 +45,16 @@ export default function CreateCustomer() {
     formState: { errors },
   } = useForm({
     mode: "onChange",
+    values: useMemo(() => {
+      console.log("getPowerById", getPowerById);
+      const powerInfo = getPowerById?.data || {};
+      return {
+        index: powerInfo?.index || "",
+        note: powerInfo?.note || "",
+        passport: powerInfo?.customer?.passport || "",
+        indexOfMonth: "",
+      };
+    }, [getPowerById]),
   });
 
   const getCustomer = async (passport: string) => {
@@ -119,6 +129,7 @@ export default function CreateCustomer() {
               <Grid item xs={12} className="">
                 <InputHasValidate
                   control={control}
+                  disabled
                   name="passport"
                   rules={{
                     required: t("common.messages.msg001input", {
@@ -163,7 +174,7 @@ export default function CreateCustomer() {
                   inputProps={{
                     style: { color: errors.indexOfMonth && "#B33434" },
                   }}
-                  disabled={!user?.fullName}
+                  disabled={!getPowerById}
                   control={control}
                   rules={{}}
                   name="indexOfMonth"

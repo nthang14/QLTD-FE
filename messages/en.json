@@ -26,8 +26,8 @@
       "msg005": "Login successfully!",
       "msg006": "Do you really want to logout?",
       "msg007": "Update information customer successfully !",
-      "msg008": "Update information customer successfully !",
-      "msg009": "Update information customer successfully !",
+      "msg008": "Index greater than 0 and last index. Please enter!",
+      "msg009": "Create new index successfully !",
       "msg010": "Update information customer successfully !",
       "msg011": "Update information customer successfully !",
       "msg012": "Update information customer successfully !",
@@ -114,7 +114,22 @@
         "index": "New index",
         "passport": "Passport of customer",
         "customerName": "Customer Name",
-        "indexLastMonth": "Previous index"
+        "indexLastMonth": "Previous index",
+        "note": "Note"
+      }
+    },
+    "list": {
+      "title": "Energy List",
+      "columns": {
+        "passport": "Passport",
+        "fullName": "Full Name",
+        "createdAt": "Created At",
+        "month": "YYYY/MM",
+        "lastIndex": "Last Index",
+        "newIndex": "New Index",
+        "quantity": "Quantity",
+        "total": "Total",
+        "tax": "Tax"
       }
     }
   }

@@ -38,6 +38,7 @@ const DatePickerCommon = ({ ...props }: DatePickerType) => {
   }, [error]);
   return (
     <DatePicker
+      disabled={props.disabled}
       onChange={props.onChange}
       value={props.defaultValue ?? null}
       className={"w-full date-picker " + (props.className ?? "")}

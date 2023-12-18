@@ -12,6 +12,12 @@ export const powerServiceApi = createApi({
         params: params,
       }),
     }),
+    getPowerById: builder.query({
+      query: (id: any) => ({
+        url: `/powers/${id}`,
+        method: "GET",
+      }),
+    }),
     createPowers: builder.mutation({
       query: (payload: any) => ({
         url: `/powers`,
@@ -51,5 +57,8 @@ export const powerServiceApi = createApi({
 });
 
 export const {
-    useGetPreviousPowerMutation
+    useGetPreviousPowerMutation,
+    useCreatePowersMutation,
+    useGetPowersQuery,
+    useGetPowerByIdQuery
 } = powerServiceApi;

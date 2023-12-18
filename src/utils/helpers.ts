@@ -76,3 +76,17 @@ export const getLastMonth = (value: string) => {
   }
   return `${lastYear}/${lastMonth.toString().padStart(2, "0")}`;
 };
+
+export const calBill = (number: number, range: any[]) => {
+  const total = range.reduce((totalCal, currentValue) => {
+    if (number >= currentValue.range) {
+      number = number - currentValue.range;
+      return totalCal + currentValue.range * currentValue.unitPrice;
+    }
+    if (number < currentValue.range && number > 0) {
+      return totalCal + number * currentValue.unitPrice;
+    }
+  }, 0);
+  return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+};
+

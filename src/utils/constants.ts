@@ -2,7 +2,7 @@ import getConfig from "next/config";
 export const ORDER_ASCEND = "ascend";
 export const ORDER_DESCEND = "descend";
 const { publicRuntimeConfig } = getConfig();
-export const PATH_API: string = publicRuntimeConfig.baseURL;
+export const PATH_API = "http://localhost:8080";
 export const PATH_API_TEST: string = "http://localhost:8000/api/v1";
 export const URL_AUTH = "/auth";
 export const METHOD = {
