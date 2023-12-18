@@ -11,7 +11,7 @@ import { useGetPowersQuery } from "~/app/services/powerService";
 import { formatDate, calBill } from "~/utils/helpers";
 import InputCommon from "~/components/common/InputCommon";
 import { debounce } from "~/utils/helpers";
-
+import Tooltip from "@mui/material/Tooltip";
 export default function CustomerList() {
   const t = useTranslations();
   const router = useRouter();
@@ -59,12 +59,12 @@ export default function CustomerList() {
       ),
     },
     {
-      title: t("power.list.columns.createdAt"),
-      dataIndex: "createdAt",
-      key: "createdAt",
+      title: t("power.list.columns.month"),
+      dataIndex: "indexOfMonth",
+      key: "indexOfMonth",
       className: "w-[80px] !p[12px]",
       render: (record: any) => (
-        <div className="">{formatDate(record?.createdAt, "DD/MM/YYYY")}</div>
+        <div className="">{formatDate(record?.indexOfMonth, "MM/YYYY")}</div>
       ),
     },
     {
@@ -97,18 +97,7 @@ export default function CustomerList() {
         </div>
       ),
     },
-    {
-      title: t("power.list.columns.quantity"),
-      dataIndex: "quantity",
-      key: "quantity",
-      className: "w-[80px] !p[12px]",
-      ellipsis: true,
-      render: (record: any) => (
-        <div className="py-1">
-          {record?.index - (record?.lastIndex || 0) || "--"}
-        </div>
-      ),
-    },
+
     {
       title: t("power.list.columns.total"),
       dataIndex: "total",
@@ -121,6 +110,18 @@ export default function CustomerList() {
             record?.index - (record?.lastIndex || 0),
             record?.rangePrice
           ) || "--"}
+        </div>
+      ),
+    },
+    {
+      title: t("power.list.columns.note"),
+      dataIndex: "note",
+      key: "note",
+      className: "w-[80px] !p[12px]",
+      ellipsis: true,
+      render: (record: any) => (
+        <div className="py-1">
+          <Tooltip title={record?.note || "--"}>{record?.note || "--"}</Tooltip>
         </div>
       ),
     },
@@ -144,7 +145,7 @@ export default function CustomerList() {
             color={"primary"}
             className="btn h-[40px] w-[154px]"
             variant="outlined"
-            title={t("common.button.createCustomer")}
+            title={t("common.button.createEnergy")}
           />
         </Link>
       </div>

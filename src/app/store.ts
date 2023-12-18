@@ -5,6 +5,8 @@ import userSlice from "~/app/slices/userSlice";
 import { userServiceApi } from "~/app/services/userService";
 import powerSlice from '~/app/slices/powerSlice';
 import { powerServiceApi } from "~/app/services/powerService"
+import receiptSlice from '~/app/slices/receiptSlice';
+import { receiptServiceApi } from "~/app/services/receiptService"
 import commonSlice from "~/app/slices/commonSlice";
 export const store = configureStore({
   reducer: {
@@ -16,7 +18,9 @@ export const store = configureStore({
     [userServiceApi.reducerPath]: userServiceApi.reducer,
 
     power: powerSlice,
-    [powerServiceApi.reducerPath]: powerServiceApi.reducer
+    [powerServiceApi.reducerPath]: powerServiceApi.reducer,
+    receipt: receiptSlice,
+    [receiptServiceApi.reducerPath]: receiptServiceApi.reducer
    
   },
   middleware: (getDefaultMiddleware) =>
@@ -24,6 +28,8 @@ export const store = configureStore({
       .concat(authServiceApi.middleware)
       .concat(userServiceApi.middleware)
       .concat(powerServiceApi.middleware)
+      .concat(receiptServiceApi.middleware)
+
       
 });
 export type RootState = ReturnType<typeof store.getState>;

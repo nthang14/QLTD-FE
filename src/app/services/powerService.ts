@@ -60,5 +60,6 @@ export const {
     useGetPreviousPowerMutation,
     useCreatePowersMutation,
     useGetPowersQuery,
-    useGetPowerByIdQuery
+    useGetPowerByIdQuery,
+    useUpdatePowersMutation
 } = powerServiceApi;

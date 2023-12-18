@@ -90,3 +90,40 @@ export const calBill = (number: number, range: any[]) => {
   return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
 };
 
+export const formatCurrency = (amount: number) => {
+  if(!amount) return ''
+  return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+}
+
+export const makeRows = (totalQuantity: any, rangePrice: any[]) => {
+  const payment: any[] = [];
+  const total = rangePrice.reduce((totalCal: number, currentValue: any) => {
+    if (totalQuantity >= currentValue.range) {
+      totalQuantity = totalQuantity - currentValue.range;
+      payment.push({
+        unitPrice: currentValue.unitPrice,
+        sum: currentValue.range * currentValue.unitPrice,
+        quantity: currentValue.range,
+      });
+      return totalCal + currentValue.range * currentValue.unitPrice;
+    }
+    if (totalQuantity < currentValue.range && totalQuantity > 0) {
+      payment.push({
+        unitPrice: currentValue.unitPrice,
+        sum: totalQuantity * currentValue.unitPrice,
+        quantity: totalQuantity,
+      });
+      totalQuantity = 0;
+      return totalCal + totalQuantity * currentValue.unitPrice;
+    }
+    if (totalQuantity === 0) {
+      payment.push({
+        unitPrice: currentValue.unitPrice,
+        sum: 0,
+        quantity: 0,
+      });
+      return totalCal + totalQuantity * currentValue.unitPrice;
+    }
+  }, 0);
+  return {total, payment}
+}

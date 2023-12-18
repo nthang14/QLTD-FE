@@ -8,7 +8,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useGetUserByPassportMutation } from "~/app/services/userService";
 import {
   useGetPreviousPowerMutation,
-  useCreatePowersMutation,
+  useUpdatePowersMutation,
   useGetPowerByIdQuery,
 } from "~/app/services/powerService";
 import InputHasValidate from "~/components/common/InputCommon/InputHasValidate";
@@ -22,7 +22,7 @@ import { getLastMonth } from "~/utils/helpers";
 import { useDispatch } from "react-redux";
 import { setNotify } from "~/app/slices/commonSlice";
 dayjs.extend(duration);
-export default function CreateCustomer() {
+export default function UpdateEnergy() {
   const t = useTranslations();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ export default function CreateCustomer() {
   const [passport, setPassport] = useState("");
   const [userByPassport] = useGetUserByPassportMutation();
   const [getPreviousPower] = useGetPreviousPowerMutation();
-  const [createPowers] = useCreatePowersMutation();
+  const [updatePowers] = useUpdatePowersMutation();
   const [user, setUser] = useState<any>(null);
   const [lastIndex, setLastIndex] = useState<number>(0);
   const getPowerById = useGetPowerByIdQuery(router?.query?.energyId);
@@ -42,21 +42,26 @@ export default function CreateCustomer() {
     handleSubmit,
     control,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     mode: "onChange",
     values: useMemo(() => {
-      console.log("getPowerById", getPowerById);
+      console.log("getPowerById?.data ", getPowerById?.data);
       const powerInfo = getPowerById?.data || {};
       return {
         index: powerInfo?.index || "",
         note: powerInfo?.note || "",
         passport: powerInfo?.customer?.passport || "",
-        indexOfMonth: "",
+        indexOfMonth: powerInfo?.indexOfMonth,
       };
     }, [getPowerById]),
   });
-
+  useEffect(() => {
+    setUser(getPowerById?.data?.customer || {});
+    setLastIndex(getPowerById?.data?.lastIndex || 0);
+    setIndexOfMonth(dayjs(getPowerById?.data?.indexOfMonth).format("YYYY/MM"));
+  }, [getPowerById]);
   const getCustomer = async (passport: string) => {
     setPassport(passport);
     const result: any = await userByPassport({ passport });
@@ -72,22 +77,21 @@ export default function CreateCustomer() {
     );
     if (newLastMonth && user?._id) {
       setIndexOfMonth(dayjs(dayjs(value).valueOf()).format("YYYY/MM"));
-      const result = await getPreviousPower({
+      const result: any = await getPreviousPower({
         customerId: user._id,
         indexOfMonth: newLastMonth,
       });
-      if (result) {
-        console.log("result", result);
+      if (result && result?.data && result?.data?.index) {
         setLastIndex(result?.data?.index);
       }
       setLastMonth(newLastMonth);
     }
   };
   const validateIndex = (value: number, message: string) => {
-    if (value <= 0) {
+    if (value < 0) {
       return message;
     }
-    if (value <= lastIndex) {
+    if (value < lastIndex) {
       return message;
     }
     return true;
@@ -103,23 +107,28 @@ export default function CreateCustomer() {
       indexOfMonth,
       customerId: user._id,
     };
-    const result = await createPowers(payload);
+    const result = await updatePowers({
+      id: router?.query?.energyId,
+      payload,
+    });
+
     if (result) {
       dispatch(
         setNotify({
           isShowNotify: true,
-          notifyContent: t("common.messages.msg009"),
+          notifyContent: t("common.messages.msg010"),
           typeAlert: "success",
         })
       );
+      // router.push(`/energy/${router?.query?.energyId}`);
     }
   };
   return (
     <div className="customer-create">
       <div className="flex justify-between items-center">
         <div>
-          <BreadcrumbsCommon data={["energy", "indexCreate"]} />
-          <TitleCommon title={t("power.create.title")} />
+          <BreadcrumbsCommon data={["energy", "indexDetail", "indexEdit"]} />
+          <TitleCommon title={t("power.edit.title")} />
         </div>
       </div>
       <div className={"flex justify-between flex-col h-full"}>
@@ -129,7 +138,6 @@ export default function CreateCustomer() {
               <Grid item xs={12} className="">
                 <InputHasValidate
                   control={control}
-                  disabled
                   name="passport"
                   rules={{
                     required: t("common.messages.msg001input", {
@@ -166,6 +174,7 @@ export default function CreateCustomer() {
               </Grid>
               <Grid item xs={6} className="">
                 <DatePickerCommon
+                  control={control}
                   onChange={(value: string) => {
                     handleChangeMonth(value);
                   }}
@@ -174,8 +183,12 @@ export default function CreateCustomer() {
                   inputProps={{
                     style: { color: errors.indexOfMonth && "#B33434" },
                   }}
+                  defaultValue={
+                    getValues("indexOfMonth")
+                      ? dayjs(getValues("indexOfMonth"))
+                      : null
+                  }
                   disabled={!getPowerById}
-                  control={control}
                   rules={{}}
                   name="indexOfMonth"
                   error={errors.indexOfMonth}
@@ -239,7 +252,7 @@ export default function CreateCustomer() {
                   className="rounded-3xl w-[216px]"
                   variant="outlined"
                   onClick={() => {
-                    router.push("/energy");
+                    router.push(`/energy${router?.query?.energyId}`);
                   }}
                   autoFocus
                 >
@@ -251,13 +264,14 @@ export default function CreateCustomer() {
                   size="medium"
                   type="button"
                   color="primary"
+                  disabled={getPowerById?.data?.isReceipt}
                   className="rounded-3xl w-[216px]"
                   onClick={handleSubmit((data) => {
                     doSubmit(data);
                   })}
                   autoFocus
                 >
-                  {t("common.button.submit")}
+                  {t("common.button.save")}
                 </ButtonCommon>
               </Grid>
             </Grid>

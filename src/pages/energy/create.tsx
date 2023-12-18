@@ -20,6 +20,7 @@ import duration from "dayjs/plugin/duration";
 import { getLastMonth } from "~/utils/helpers";
 import { useDispatch } from "react-redux";
 import { setNotify } from "~/app/slices/commonSlice";
+import { AnyARecord } from "dns";
 dayjs.extend(duration);
 export default function CreateCustomer() {
   const t = useTranslations();
@@ -62,12 +63,11 @@ export default function CreateCustomer() {
     );
     if (newLastMonth && user?._id) {
       setIndexOfMonth(dayjs(dayjs(value).valueOf()).format("YYYY/MM"));
-      const result = await getPreviousPower({
+      const result: any = await getPreviousPower({
         customerId: user._id,
         indexOfMonth: newLastMonth,
       });
-      if (result) {
-        console.log("result", result);
+      if (result && result?.data && result?.data?.index) {
         setLastIndex(result?.data?.index);
       }
       setLastMonth(newLastMonth);
@@ -93,13 +93,22 @@ export default function CreateCustomer() {
       indexOfMonth,
       customerId: user._id,
     };
-    const result = await createPowers(payload);
-    if (result) {
+    const result: any = await createPowers(payload);
+    if (result && result?.data?.data) {
       dispatch(
         setNotify({
           isShowNotify: true,
           notifyContent: t("common.messages.msg009"),
           typeAlert: "success",
+        })
+      );
+      router.push("/energy");
+    } else {
+      dispatch(
+        setNotify({
+          isShowNotify: true,
+          notifyContent: result?.data?.message,
+          typeAlert: "error",
         })
       );
     }

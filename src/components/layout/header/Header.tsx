@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { LOGOUT, ROLE_ADMIN } from "~/utils/constants";
-import { readProfile } from "~/utils/storage";
+import { readProfile, saveAccessToken } from "~/utils/storage";
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import infoIcon from "~/assets/icons/info-icon.svg";
@@ -63,7 +63,8 @@ export default function Header() {
   };
   const handleOk = () => {
     setIsModalOpen(false);
-    handleLogout();
+    saveAccessToken("");
+    router.push("/auth/login");
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -177,7 +178,7 @@ export default function Header() {
               onClick={handleOk}
               autoFocus
             >
-              {/* {t("common.button.continue")} */}
+              {t("common.button.continue")}
             </ButtonCommon>
           </DialogActions>
         </Dialog>
