@@ -15,7 +15,9 @@
       "continue": "Continue",
       "viewReceipt": "View Receipt",
       "createReceipt": "Create Receipt",
-      "exportReceipt": "Export Receipt"
+      "exportReceipt": "Export Receipt",
+      "pay": "Payment",
+      "paid": "Paid"
     },
     "paging": "{range1} to {range2} out of items",
     "paging_with_total": "{range1} to {range2} out of {total} items",
@@ -63,7 +65,9 @@
     "editCustomer": "Edit Customer",
     "indexCreate": "Create Index Energy",
     "indexEdit": "Edit Index Energy",
-    "indexDetail": "Detail Index Energy"
+    "indexDetail": "Detail Index Energy",
+    "receiptList": "Receipt list",
+    "receiptDetail": "Receipt Detail"
   },
   "dialog": {
     "upload_image": {
@@ -163,6 +167,14 @@
         "phoneNumber": "Phone number",
         "address": "Address"
       }
+    },
+    "listTitle": "Receipt list",
+    "list": {
+      "quantity": "Quantity",
+      "totalPrice": "Total price",
+      "customer": "Customer",
+      "indexOdMonth": "Index of month",
+      "paid": "Payment"
     }
   },
   "detailPrice": {

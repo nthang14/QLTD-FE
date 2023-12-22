@@ -26,12 +26,18 @@ export const receiptServiceApi = createApi({
         method: "GET",
       }),
     }),
-
+    payment: builder.mutation({
+      query: (id: any) => ({
+        url: `/receipts/${id}`,
+        method: "PUT",
+      }),
+    }),
   }),
 });
 
 export const {
    useCreateNewReceiptMutation,
    useGetReceiptsQuery,
-   useGetReceiptByIdQuery
+   useGetReceiptByIdQuery,
+   usePaymentMutation
 } = receiptServiceApi;

@@ -16,20 +16,24 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useGetReceiptByIdQuery } from "~/app/services/receiptService";
+import {
+  useGetReceiptByIdQuery,
+  usePaymentMutation,
+} from "~/app/services/receiptService";
 import { useDispatch } from "react-redux";
 import { setNotify } from "~/app/slices/commonSlice";
 import { formatCurrency, makeRows, formatDate } from "~/utils/helpers";
 import { DocTienBangChu } from "~/utils/converNumberToChar";
-import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import CheckIcon from "@mui/icons-material/Check";
 export default function ReceiptDEtail() {
   const reportTemplateRef = useRef(null);
   const dispatch = useDispatch();
   const t = useTranslations();
   const router = useRouter();
   const docPrice = new DocTienBangChu();
-  const fetchReceipt: any = useGetReceiptByIdQuery(router?.query?.receiptId);
-  const [receiptDetail, setReceiptDetail] = useState({});
+  const fetchReceipt = useGetReceiptByIdQuery(router?.query?.receiptId);
+  const [receiptDetail, setReceiptDetail] = useState<any>({});
   const [rows, setRows] = useState<any>([]);
   const [totalPayment, setTotalPayment] = useState(0);
   const [date, setDate] = useState(null);
@@ -54,41 +58,79 @@ export default function ReceiptDEtail() {
     }
   }, [fetchReceipt]);
   const handleGeneratePdf = () => {
-    const doc = new jsPDF({
-      format: "a4",
-      unit: "px",
-    });
-
-    // Adding the fonts.
-    // doc.setFont("Times New Roman");
-    doc.setFont("times");
-    // doc.setFontType("italic");
-
-    doc.html(reportTemplateRef.current, {
-      async callback(doc) {
-        await doc.save("document");
-      },
-    });
+    html2canvas(document.getElementById("test"))
+      .then(function (canvas) {
+        canvas.style.display = "none";
+        document.body.appendChild(canvas);
+        return canvas;
+      })
+      .then((canvas) => {
+        const image = canvas.toDataURL("image/png");
+        const a = document.createElement("a");
+        a.setAttribute(
+          "download",
+          `${receiptDetail.customer.fullName}-${formatDate(
+            receiptDetail.indexOfMonth,
+            "DD/MM/YYYY"
+          )}`
+        );
+        a.setAttribute("href", image);
+        a.click();
+        canvas.remove();
+      });
+  };
+  const [payment] = usePaymentMutation();
+  const handlePay = async () => {
+    const result = await payment(receiptDetail._id);
+    if (result) {
+      fetchReceipt.refetch();
+    }
   };
   return (
     <div className="customer-create">
       <div className="flex justify-between items-center w-full">
         <div className=" w-full">
-          <BreadcrumbsCommon data={["energy", "indexDetail"]} />
+          <BreadcrumbsCommon data={["receiptList", "receiptDetail"]} />
           <div className="flex justify-between w-full">
             <TitleCommon title={t("power.detail.title")} />
+            <div>
+              {receiptDetail.paid ? (
+                <ButtonCommon
+                  size="medium"
+                  type="button"
+                  color="primary"
+                  disabled
+                  className="rounded-3xl w-[180px] mr-3"
+                  autoFocus
+                >
+                  <CheckIcon className="fill-white" />
+                  {t("common.button.paid")}
+                </ButtonCommon>
+              ) : (
+                <ButtonCommon
+                  size="medium"
+                  type="button"
+                  color="primary"
+                  className="rounded-3xl w-[180px] mr-3"
+                  autoFocus
+                  onClick={handlePay}
+                >
+                  {t("common.button.pay")}
+                </ButtonCommon>
+              )}
 
-            <ButtonCommon
-              size="medium"
-              type="button"
-              color="primary"
-              className="rounded-3xl w-[216px]"
-              variant="outlined"
-              autoFocus
-              onClick={handleGeneratePdf}
-            >
-              {t("common.button.exportReceipt")}
-            </ButtonCommon>
+              <ButtonCommon
+                size="medium"
+                type="button"
+                color="primary"
+                className="rounded-3xl w-[180px]"
+                variant="outlined"
+                autoFocus
+                onClick={handleGeneratePdf}
+              >
+                {t("common.button.exportReceipt")}
+              </ButtonCommon>
+            </div>
           </div>
         </div>
       </div>
@@ -96,7 +138,7 @@ export default function ReceiptDEtail() {
         className={"flex justify-between flex-col h-full"}
         ref={reportTemplateRef}
       >
-        <div className={" py-6 box-form"}>
+        <div className={" py-6 box-form"} id="test">
           <div className="form-transfer">
             <div className="uppercase text-[24px] text-center font-bold pb-1">
               {t("detailPrice.invoice")}
@@ -248,8 +290,8 @@ export default function ReceiptDEtail() {
                         >
                           {t("detailPrice.totalPriceChar")}
                         </TableCell>
-                        <TableCell align="right">
-                          {docPrice.doc(totalPayment)}
+                        <TableCell align="right" className="max-w-[120px]">
+                          <div>{docPrice.doc(totalPayment)}</div>
                         </TableCell>
                       </TableRow>
                     </TableBody>
@@ -259,7 +301,7 @@ export default function ReceiptDEtail() {
 
               <Grid item xs={6} className="flex justify-center">
                 <div>
-                  <div className="pb-20 text-center">
+                  <div className="pb-10 text-center">
                     {t("detailPrice.customer")}
                   </div>
                   <div className="text-center">
@@ -269,7 +311,7 @@ export default function ReceiptDEtail() {
               </Grid>
               <Grid item xs={6} className="flex justify-center">
                 <div>
-                  <div className="pb-20 text-center">
+                  <div className="pb-10 text-center">
                     {t("detailPrice.seller")}
                   </div>
                   <div className="text-center">{`Energy management`}</div>

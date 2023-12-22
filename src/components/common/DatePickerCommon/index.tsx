@@ -21,6 +21,7 @@ export type DatePickerType = {
   maxDate?: any;
   format?: string;
   setError?: any;
+  views?: any;
 };
 
 const DatePickerCommon = ({ ...props }: DatePickerType) => {
@@ -50,7 +51,7 @@ const DatePickerCommon = ({ ...props }: DatePickerType) => {
       slots={{
         openPickerIcon: CalendarTodayIcon,
       }}
-      views={["month", "year"]}
+      views={props.views ? props.views : ["month", "year"]}
       slotProps={{
         textField: {
           helperText: errorMessage,

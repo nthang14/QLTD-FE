@@ -7,6 +7,8 @@ import powerSlice from '~/app/slices/powerSlice';
 import { powerServiceApi } from "~/app/services/powerService"
 import receiptSlice from '~/app/slices/receiptSlice';
 import { receiptServiceApi } from "~/app/services/receiptService"
+import reportSlice from '~/app/slices/reportSlice';
+import { reportServiceApi } from "~/app/services/reportService"
 import commonSlice from "~/app/slices/commonSlice";
 export const store = configureStore({
   reducer: {
@@ -20,7 +22,9 @@ export const store = configureStore({
     power: powerSlice,
     [powerServiceApi.reducerPath]: powerServiceApi.reducer,
     receipt: receiptSlice,
-    [receiptServiceApi.reducerPath]: receiptServiceApi.reducer
+    [receiptServiceApi.reducerPath]: receiptServiceApi.reducer,
+    report: reportSlice,
+    [reportServiceApi.reducerPath]: reportServiceApi.reducer
    
   },
   middleware: (getDefaultMiddleware) =>
@@ -29,6 +33,8 @@ export const store = configureStore({
       .concat(userServiceApi.middleware)
       .concat(powerServiceApi.middleware)
       .concat(receiptServiceApi.middleware)
+      .concat(reportServiceApi.middleware)
+
 
       
 });

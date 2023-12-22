@@ -20,7 +20,6 @@ import duration from "dayjs/plugin/duration";
 import { getLastMonth } from "~/utils/helpers";
 import { useDispatch } from "react-redux";
 import { setNotify } from "~/app/slices/commonSlice";
-import { AnyARecord } from "dns";
 dayjs.extend(duration);
 export default function CreateCustomer() {
   const t = useTranslations();
