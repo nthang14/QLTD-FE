@@ -33,7 +33,6 @@ export default function Home() {
   const [dataChart, setDataChart] = useState<any>([]);
   const getReportReceipts = useGetReportReceiptQuery(params);
   const getReportUser = useGetReportUserQuery({});
-  console.log("getReportUser", getReportUser);
   const handleChangeMonth = async (value: string) => {
     setParams({
       year: dayjs(dayjs(value).valueOf()).format("YYYY"),

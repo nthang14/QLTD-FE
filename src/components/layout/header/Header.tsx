@@ -20,8 +20,8 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { LOGOUT, ROLE_ADMIN } from "~/utils/constants";
-import { readProfile, saveAccessToken } from "~/utils/storage";
+import { LOGOUT, ROLE_ADMIN, ROLE_USER } from "~/utils/constants";
+import { readProfile, saveAccessToken, saveProfile } from "~/utils/storage";
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import infoIcon from "~/assets/icons/info-icon.svg";
@@ -30,10 +30,10 @@ import Link from "next/link";
 import { NoSsr } from "@mui/base";
 import logo from "~/assets/images/logo.png";
 import Image from "next/image";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 export default function Header() {
   const t = useTranslations();
   const [authLogout] = useAuthLogoutMutation();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -41,11 +41,6 @@ export default function Header() {
   const id = open ? "simple-popover" : undefined;
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(!anchorEl ? event.currentTarget : null);
-  };
-  const dispatch = useDispatch();
-  const handleLogout = async () => {
-    const result: any = await authLogout({});
-    window.location.href = "/auth/login";
   };
   const items = [
     {
@@ -64,6 +59,7 @@ export default function Header() {
   const handleOk = () => {
     setIsModalOpen(false);
     saveAccessToken("");
+    saveProfile({});
     router.push("/auth/login");
   };
   const handleCancel = () => {
@@ -74,24 +70,22 @@ export default function Header() {
     <div>
       <div className="flex items-center justify-between px-[16px] h-[84px]">
         <Link
-          href="/dashboard"
+          href={profile?.level === 0 ? "/dashboard" : "/user/receipts"}
           className="pl-[70px] font-semibold text-[32px] leading-[42px] text-primary-06 text-center px-[12.15px] project-number cursor-pointer no-underline flex items-center"
         >
           <Image src={logo.src} width={80} height={50} alt="logo" />
         </Link>
         <div className="flex items-center justify-around">
           <NoSsr>
-            <div className="w-10 h-10 rounded-full uppercase flex justify-center items-center bg-neutral-03 text-[24px] leading-[32px] font-medium text-neutral-07">
-              {profile?.email ? profile?.email[0] : ""}
-            </div>
+            <AccountCircleIcon className="text-[40px]" />
             <div>
               <div className="font-semibold text-[14px] px-2 pr-3">
-                {profile?.name || profile?.username}
+                {profile?.fullName || profile?.username}
               </div>
               <div className="text-primary text-[12px] px-2 pr-3">
-                {profile?.role === ROLE_ADMIN.value
+                {profile?.level === ROLE_ADMIN.value
                   ? t("common.role", { role: ROLE_ADMIN.text })
-                  : ""}
+                  : t("common.role", { role: ROLE_USER.text })}
               </div>
             </div>
           </NoSsr>

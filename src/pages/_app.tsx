@@ -14,6 +14,7 @@ import { ThemeProvider } from "@mui/material";
 import { Poppins } from "next/font/google";
 import Loading from "~/components/layout/Loading";
 import Error from "~/components/layout/Error";
+import UserLayout from "~/components/layout/UserLayout";
 const poppins = Poppins({
   weight: ["200", "400", "500", "600", "700"],
   style: ["normal", "italic"],
@@ -29,6 +30,7 @@ export default function App({ Component, pageProps, messages }: AppProps) {
   const regex =
     /^(?!.*(?:api|_next\/static|_next\/image|favicon\.ico|404|500|auth)).*/;
   const arr = router.pathname.split("/");
+  const user = "user";
   return (
     <Error>
       <Provider store={store}>
@@ -45,6 +47,10 @@ export default function App({ Component, pageProps, messages }: AppProps) {
                 <main className={poppins.className + " relative"}>
                   {arr.length > 1 && !regex.test(arr[1]) ? (
                     <Component {...pageProps} />
+                  ) : router.pathname.includes(user) ? (
+                    <UserLayout>
+                      <Component {...pageProps} />
+                    </UserLayout>
                   ) : (
                     <AppLayout>
                       <Component {...pageProps} />

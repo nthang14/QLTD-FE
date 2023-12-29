@@ -56,6 +56,14 @@ const BreadcrumbsCommon = ({ ...props }) => {
       title: t("nav.receiptDetail"),
       link: `/receipts/${router.query?.receiptId}`,
     },
+    receiptDetailUser: {
+      title: t("nav.receiptDetail"),
+      link: `/user/receipts/${router.query?.receiptId}`,
+    },
+    receiptListUser: {
+      title: t("nav.receiptList"),
+      link: `/user/receipts`,
+    },
   };
 
   useEffect(() => {}, [props.data]);

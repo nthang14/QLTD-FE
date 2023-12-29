@@ -1,5 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "~/app/config/baseQuery";
+import ChangePassword from "~/pages/user/change-password";
 export const userServiceApi = createApi({
   reducerPath: "userServiceApi",
   baseQuery: baseQuery,
@@ -24,6 +25,13 @@ export const userServiceApi = createApi({
         url: `/users/${payload.id}/status`,
         method: "PUT",
         body: payload.payload,
+      }),
+    }),
+    changePassword: builder.mutation({
+      query: (payload: any) => ({
+        url: `/change-password`,
+        method: "PUT",
+        body: payload,
       }),
     }),
     getUserById: builder.query({
@@ -56,5 +64,6 @@ export const {
   useUpdateUserStatusMutation,
   useGetUserByIdQuery,
   useUpdateUserMutation,
-  useGetUserByPassportMutation
+  useGetUserByPassportMutation,
+  useChangePasswordMutation
 } = userServiceApi;

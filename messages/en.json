@@ -39,7 +39,9 @@
       "msg013": "Update information customer successfully !",
       "msg014": "Update information customer successfully !",
       "msg015": "Please select an image to upload.",
-      "msg016": "Upload file successfully."
+      "msg016": "Upload file successfully.",
+      "msg017": "Change password successfully.",
+      "msg018": "Password don't match"
     },
     "role": "Role: {role}"
   },
@@ -67,7 +69,10 @@
     "indexEdit": "Edit Index Energy",
     "indexDetail": "Detail Index Energy",
     "receiptList": "Receipt list",
-    "receiptDetail": "Receipt Detail"
+    "receiptDetail": "Receipt Detail",
+    "myProfile": "My Profile",
+    "changePassword": "Change Password",
+    "logOut": "Log Out"
   },
   "dialog": {
     "upload_image": {
@@ -192,5 +197,14 @@
     "date": "Date {day} month {month} year {year}",
     "customer": "Customer",
     "seller": "Seller"
+  },
+  "user": {
+    "changePassword": "Change Password",
+    "password": "Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password"
+  },
+  "myProfile": {
+    "title": "My Profile"
   }
 }

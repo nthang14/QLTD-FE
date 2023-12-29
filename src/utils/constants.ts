@@ -1,7 +1,5 @@
-import getConfig from "next/config";
 export const ORDER_ASCEND = "ascend";
 export const ORDER_DESCEND = "descend";
-const { publicRuntimeConfig } = getConfig();
 export const PATH_API = "http://localhost:8080";
 export const PATH_API_TEST: string = "http://localhost:8000/api/v1";
 export const URL_AUTH = "/auth";
@@ -27,9 +25,6 @@ export const STATUS_TRANSACTION = {
   completed: "completed",
 };
 export const BLOCK_NUMBER_PENDING = -1;
-export const AUTO_LOGOUT = publicRuntimeConfig.autoLogout
-  ? Number(publicRuntimeConfig.autoLogout)
-  : 15;
 export const LOGOUT = "log out";
 export const AUTH_LOGIN = "/auth/login";
 export const ENDPOINT_LOGIN = "authLogin";
@@ -46,8 +41,12 @@ export const REGEX_PASSWORD_INCLUDES_SPECIAL_CHARACTERS =
   /[~`!@#$%^&*()\-_+={}\[\]\\|:;"'<>,.?]/;
 export const REGEX_FULL_WIDTH = /[０-９]/;
 export const ROLE_ADMIN = {
-  value: 1,
+  value: 0,
   text: "Admin",
+};
+export const ROLE_USER = {
+  value: 1,
+  text: "User",
 };
 export const MAX_LENGTH_DECIMAL = 18;
 export const AUTHORIZATION = "Unauthorized";

@@ -6,8 +6,8 @@ import { IconButton, InputAdornment, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setNotify } from "~/app/slices/commonSlice";
 import ButtonCommon from "~/components/common/ButtonCommon";
-import { REGEX_EMAIL } from "~/utils/constants";
-import { saveAccessToken } from "~/utils/storage";
+import { REGEX_EMAIL, ROLE_ADMIN, ROLE_USER } from "~/utils/constants";
+import { saveAccessToken, saveProfile } from "~/utils/storage";
 import { useTranslations } from "next-intl";
 import "./style.scss";
 import InputHasValidate from "~/components/common/InputCommon/InputHasValidate";
@@ -41,6 +41,8 @@ export default function Login() {
 
     if (!!result && result?.data?.success) {
       saveAccessToken(result?.data?.data?.access_token || "");
+      const profile = result?.data?.data?.profile || {};
+      saveProfile(profile);
       dispatch(
         setNotify({
           isShowNotify: true,
@@ -48,7 +50,12 @@ export default function Login() {
           typeAlert: "success",
         })
       );
-      router.push("/");
+      if (profile.level === ROLE_ADMIN.value) {
+        router.push("/");
+      }
+      if (profile.level === ROLE_USER.value) {
+        router.push(profile.first ? "/user/change-password" : "/user/receipts");
+      }
       return;
     } else {
       const data: any = result.data?.data;
