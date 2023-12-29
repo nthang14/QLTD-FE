@@ -137,8 +137,8 @@ export default function CustomerList() {
     <div className="customer-list">
       <div className="flex justify-between items-center pb-5">
         <div>
-          <BreadcrumbsCommon data={["customer", "customerList"]} />
-          <TitleCommon title={t("customer.list.title")} />
+          <BreadcrumbsCommon data={["energy", "energyList"]} />
+          <TitleCommon title={t("power.list.title")} />
         </div>
         <Link href="/energy/create">
           <ButtonCommon

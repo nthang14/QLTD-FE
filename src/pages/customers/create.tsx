@@ -7,26 +7,16 @@ import { setLoading } from "~/app/slices/commonSlice";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useCreateUserMutation } from "~/app/services/userService";
-
+import { setNotify } from "~/app/slices/commonSlice";
 import InputHasValidate from "~/components/common/InputCommon/InputHasValidate";
-import {
-  REGEX_ADDRESS,
-  REGEX_PASSPORT,
-  REGEX_PHONE_NUMBER,
-} from "~/utils/constants";
-
-import {
-  Grid,
-  Dialog,
-  DialogActions,
-  Typography,
-  InputAdornment,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
+import { REGEX_PASSPORT, REGEX_PHONE_NUMBER } from "~/utils/constants";
+import { useDispatch } from "react-redux";
+import { Grid } from "@mui/material";
 export default function CreateCustomer() {
   const t = useTranslations();
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(true);
   const [createUser] = useCreateUserMutation();
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +24,6 @@ export default function CreateCustomer() {
   const {
     handleSubmit,
     control,
-    setValue,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -42,6 +31,16 @@ export default function CreateCustomer() {
   const doSubmit = async (value: any) => {
     if (isLoading) return;
     const result: any = await createUser(value);
+    if (result) {
+      dispatch(
+        setNotify({
+          isShowNotify: true,
+          notifyContent: t("common.messages.msg012"),
+          typeAlert: "success",
+        })
+      );
+      router.push("/customers");
+    }
   };
   return (
     <div className="customer-create">

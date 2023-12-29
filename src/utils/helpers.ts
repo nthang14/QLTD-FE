@@ -87,12 +87,12 @@ export const calBill = (number: number, range: any[]) => {
       return totalCal + number * currentValue.unitPrice;
     }
   }, 0);
-  return total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  return total?.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
 };
 
 export const formatCurrency = (amount: number) => {
   if(!amount) return ''
-  return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+  return amount?.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
 }
 
 export const makeRows = (totalQuantity: any, rangePrice: any[]) => {

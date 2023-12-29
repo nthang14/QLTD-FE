@@ -36,6 +36,10 @@ const BreadcrumbsCommon = ({ ...props }) => {
       title: t("nav.energy"),
       link: `/energy`,
     },
+    energyList: {
+      title: t("nav.energyList"),
+      link: `/energy`,
+    },
     indexCreate: {
       title: t("nav.indexCreate"),
       link: `/energy/create`,
