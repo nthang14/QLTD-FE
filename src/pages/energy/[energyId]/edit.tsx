@@ -120,7 +120,7 @@ export default function UpdateEnergy() {
           typeAlert: "success",
         })
       );
-      // router.push(`/energy/${router?.query?.energyId}`);
+      router.push(`/energy/${router?.query?.energyId}`);
     }
   };
   return (
